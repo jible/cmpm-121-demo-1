@@ -22,10 +22,16 @@ button.innerHTML = "💸";
 app.append(button);
 button.addEventListener("click", () => {
   money_count++;
-  countDisplay.innerHTML = `${money_count}`;
 });
 
-setInterval(() => {
-  money_count++;
-  countDisplay.innerHTML = `${money_count}`;
-}, 1000);
+let lastFrame = 0;
+
+requestAnimationFrame(step);
+
+function step(currentTime: DOMHighResTimeStamp) {
+  const elapsed = currentTime - lastFrame;
+  lastFrame = currentTime;
+  money_count += elapsed / 1000;
+  countDisplay.innerHTML = `${Math.round(money_count)}`;
+  requestAnimationFrame(step);
+}
