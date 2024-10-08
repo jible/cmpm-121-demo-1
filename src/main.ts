@@ -10,7 +10,6 @@ header.innerHTML = gameName;
 app.append(header);
 
 let money_count = 0;
-let lemonade_stand_count = 0;
 //let all_time_money = 0;
 
 const countDisplay = document.createElement("countDisplay");
@@ -29,14 +28,16 @@ class building {
   name: string;
   baseMps: number;
   cost: number;
-  costIncreaseRate: number = 1.2;
+  costIncreaseRate: number = 1.15;
   buildingCount: number = 0;
+  count: number = 0;
+  button: HTMLButtonElement | null = null;
 
   constructor(
     name: string,
     baseMPS: number,
     cost: number,
-    costIncreaseRate?: number,
+    costIncreaseRate?: number
   ) {
     this.name = name;
     this.baseMps = baseMPS;
@@ -44,6 +45,33 @@ class building {
     this.buildingCount = 0;
     if (costIncreaseRate) {
       this.costIncreaseRate = costIncreaseRate;
+    }
+  }
+
+  setupButton(): void {
+    this.button = document.createElement("button");
+    this.button.innerHTML = `${this.name}s: ${this.count}<br>Cost: ${Math.round(this.cost)}`;
+    this.button.disabled = true;
+    app.append(this.button);
+    this.button.addEventListener("click", () => {
+      money_count -= this.cost;
+      this.count += 1;
+      this.cost *= this.costIncreaseRate;
+      if (this.button) {
+        this.button.innerHTML = `${this.name}s: ${this.count}<br>Cost: ${Math.round(this.cost)}`;
+      }
+    });
+  }
+
+  updateButton() {
+    if (this.button) {
+      this.button.innerHTML = `${this.name}s: ${this.count}<br>Cost: ${Math.round(this.cost)}`;
+
+      if (money_count >= this.cost) {
+        this.button.disabled = false;
+      } else {
+        this.button.disabled = true;
+      }
     }
   }
 }
@@ -71,26 +99,18 @@ buildingArray.push(goldenGoose);
 
 // Make buttons for buildings
 
-const lemonadeStandButton = document.createElement("button");
-lemonadeStandButton.innerHTML = "Lemonade Stands: 0<br>Cost: 10";
-lemonadeStandButton.disabled = true;
-
-const minimumWageJobButton = document.createElement("button");
-minimumWageJobButton.innerHTML = "Minimum Wage Jobs: 0<br>Cost: 50";
-minimumWageJobButton.disabled = true;
+for (
+  let buildingIndex = 0;
+  buildingIndex < buildingArray.length;
+  buildingIndex++
+) {
+  const currentBuilding = buildingArray[buildingIndex];
+  currentBuilding.setupButton();
+}
 
 const goldenGooseButton = document.createElement("button");
 goldenGooseButton.innerHTML = "Golden Geese: 0<br>Cost: 1000";
 goldenGooseButton.disabled = true;
-
-//Setting up purchase button
-
-app.append(lemonadeStandButton);
-lemonadeStandButton.addEventListener("click", () => {
-  lemonadeStandButton.innerHTML = `Lemonade Stands: ${lemonade_stand_count}\n Lemonade Stand Cost: 10`;
-  money_count -= 10;
-  lemonade_stand_count += 1;
-});
 
 //This stuff occurs every Frame
 let lastFrame = 0;
@@ -103,14 +123,15 @@ function step(currentTime: DOMHighResTimeStamp) {
   // Increase count
   money_count += mps * (elapsed / 1000);
 
-  // update if things can be purchased
-  if (money_count >= 10) {
-    lemonadeStandButton.disabled = false;
-  } else {
-    lemonadeStandButton.disabled = true;
-  }
-
   // update display
+  for (
+    let buildingIndex = 0;
+    buildingIndex < buildingArray.length;
+    buildingIndex++
+  ) {
+    const currentBuilding = buildingArray[buildingIndex];
+    currentBuilding.updateButton();
+  }
   countDisplay.innerHTML = `${Math.round(money_count)}`;
 
   requestAnimationFrame(step);
@@ -124,9 +145,7 @@ function calcMps() {
     buildingIndex++
   ) {
     const currentBuilding = buildingArray[buildingIndex];
-
-    mps += currentBuilding.baseMps * 1;
+    mps += currentBuilding.baseMps * currentBuilding.count;
   }
-
   return mps;
 }
