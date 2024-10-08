@@ -37,7 +37,7 @@ class building {
     name: string,
     baseMPS: number,
     cost: number,
-    costIncreaseRate?: number
+    costIncreaseRate?: number,
   ) {
     this.name = name;
     this.baseMps = baseMPS;
