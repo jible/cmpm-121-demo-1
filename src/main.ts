@@ -37,7 +37,7 @@ class building {
     name: string,
     baseMPS: number,
     cost: number,
-    costIncreaseRate?: number,
+    costIncreaseRate?: number
   ) {
     this.name = name;
     this.baseMps = baseMPS;
@@ -111,8 +111,6 @@ for (
 const goldenGooseButton = document.createElement("button");
 goldenGooseButton.innerHTML = "Golden Geese: 0<br>Cost: 1000";
 goldenGooseButton.disabled = true;
-
-//Setting up purchase button
 
 //This stuff occurs every Frame
 let lastFrame = 0;
