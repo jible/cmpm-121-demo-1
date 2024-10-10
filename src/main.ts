@@ -76,6 +76,40 @@ class building {
   }
 }
 
+// Make Money per second Display
+function makeUI(): HTMLDivElement {
+  const newUI = document.createElement("div");
+
+  // Set the text content
+  newUI.innerText = "Money per second: 0";
+
+  // Style the element
+  Object.assign(newUI.style, {
+    position: "absolute",
+    top: "10px",
+    right: "10px",
+    color: "white",
+    fontFamily: "'Press Start 2P', cursive",
+    fontSize: "14px",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    padding: "5px",
+    borderRadius: "5px",
+    zIndex: "1",
+  });
+
+  // Append to the document
+  document.body.appendChild(newUI);
+
+  return newUI;
+}
+function updateMoneyPerSecond(
+  moneyDiv: HTMLDivElement,
+  moneyPerSecond: number
+): void {
+  moneyDiv.innerText = `Money per second: ${moneyPerSecond}`;
+}
+const mpsDisplay: HTMLDivElement = makeUI();
+
 // Make Buildings
 const buildingArray: building[] = [];
 const lemonadeStand = new building("Lemonade Stand", 0.1, 10);
@@ -89,8 +123,6 @@ const goldenGoose = new building("Golden Goose", 50, 1000);
 // money solar panel?
 // do chores
 // money waterfall
-// golden goose
-//
 // buy a buisness
 // infinite money glitch
 buildingArray.push(lemonadeStand);
@@ -108,11 +140,8 @@ for (
   currentBuilding.setupButton();
 }
 
-const goldenGooseButton = document.createElement("button");
-goldenGooseButton.innerHTML = "Golden Geese: 0<br>Cost: 1000";
-goldenGooseButton.disabled = true;
-
 //This stuff occurs every Frame
+//------------------------------------------------------------------------------------------------------------------
 let lastFrame = 0;
 requestAnimationFrame(step);
 function step(currentTime: DOMHighResTimeStamp) {
@@ -133,6 +162,7 @@ function step(currentTime: DOMHighResTimeStamp) {
     currentBuilding.updateButton();
   }
   countDisplay.innerHTML = `${Math.round(money_count)}`;
+  updateMoneyPerSecond(mpsDisplay, mps);
 
   requestAnimationFrame(step);
 }
