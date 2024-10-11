@@ -176,9 +176,9 @@ const mpsDisplay: HTMLDivElement = makeUI();
 const buildingArray: building[] = [
   new building(
     "Lemonade Stand",
-    0.1,
-    0.5,
-    "Sells a 10 cent lemonade every second",
+    0.001,
+    0.01,
+    "Sells a 1 cent lemonade every 10 seconds",
   ),
   new building("Minimum Wage Job", 2, 100, `A classic way to make money!`),
   new building(
@@ -204,7 +204,7 @@ const buildingArray: building[] = [
     "Monopoly",
     50000,
     3000000,
-    `This doesn't feel ethical but look at all of this money!`,
+    `I know this board game is good, but I didn't know it was that good.`,
   ),
   new building(
     "Infinite Money Glitch",
