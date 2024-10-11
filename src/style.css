@@ -40,7 +40,6 @@
 }
 
 #button-container,
-#cheat-menu,
 #count-text {
   display: flex;
   flex-direction: column;
@@ -54,8 +53,26 @@
 }
 
 #cheat-menu {
-  display: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: fixed;          /* Position fixed to the viewport */
+  bottom: 20px;             /* Align container 20px from the bottom */
+  right: 20px;              /* Align container 20px from the right */
+  background-color: rgba(236, 16, 16, 0.6); /* Semi-transparent background */
+  color: white;
+  padding: 10px 15px;
+  border: 5px;
+  border-color: blueviolet;
+  border-radius: 8px;         /* High z-index to ensure visibility */
+  visibility: hidden;
 }
+
+#cheat-button{
+  background-color: blueviolet;
+
+}
+
 
 a {
   font-weight: 500;

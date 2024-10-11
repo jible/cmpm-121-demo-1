@@ -2,7 +2,9 @@ import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
 
+// -------------------------------------------------------------------------
 // Setting up visual assets
+// -------------------------------------------------------------------------
 const coinImg = document.createElement("img");
 coinImg.src = "Image/penny.png";
 coinImg.style.width = "103px";
@@ -13,7 +15,9 @@ logoImg.src = "Image/title.png";
 logoImg.style.width = "622px";
 logoImg.style.height = "200px";
 
+// -------------------------------------------------------------------------
 // Set up variables for page - logo, buttons, and money count
+// -------------------------------------------------------------------------
 const gameName = "Free Money the Game";
 document.title = gameName;
 let money_count = 0;
@@ -41,7 +45,10 @@ const buildingButtonContainer = document.createElement("div");
 buildingButtonContainer.id = "button-container";
 app.append(buildingButtonContainer);
 
+// -------------------------------------------------------------------------
 // Tooltip setup: follows mouse around and becomes visible over buttons
+// -------------------------------------------------------------------------
+
 const tooltip = document.createElement("div");
 tooltip.id = "tooltip";
 document.body.appendChild(tooltip);
@@ -94,7 +101,6 @@ class building {
     this.button.innerHTML = `${this.name}s: ${this.count}<br>Cost: ${Math.round(this.cost)}`;
     this.button.disabled = true;
     buildingButtonContainer.append(this.button);
-
     this.button.addEventListener("mouseenter", () => {
       tooltipTitle.textContent = this.name;
       tooltipDescription.textContent = this.description;
@@ -103,19 +109,16 @@ class building {
       }
       tooltip.style.visibility = "visible";
     });
-
     this.button.addEventListener("mouseleave", () => {
       tooltipTitle.textContent = ``;
       tooltipDescription.textContent = ``;
       tooltipProduction.textContent = ``;
       tooltip.style.visibility = "hidden";
     });
-
     this.button.addEventListener("click", () => {
       if (this.count === 0) {
         tooltipProduction.textContent = `Produces $${this.baseMps.toFixed(2)} money per second`;
       }
-
       money_count -= this.cost;
       this.count += 1;
       this.cost *= this.costIncreaseRate;
@@ -124,7 +127,6 @@ class building {
       }
     });
   }
-
   updateButton() {
     if (this.button) {
       this.button.innerHTML = `${this.name}s: ${this.count}<br>Cost: $${this.cost.toFixed(2)}`;
@@ -136,8 +138,9 @@ class building {
     }
   }
 }
-
+// -------------------------------------------------------------------------
 // Make Money per second Display and UI functions
+// -------------------------------------------------------------------------
 function makeUI(): HTMLDivElement {
   const newUI = document.createElement("div");
   newUI.innerText = "Money per second: 0";
@@ -147,8 +150,7 @@ function makeUI(): HTMLDivElement {
     top: "10px",
     right: "10px",
     color: "white",
-    fontFamily: "'Press Start 2P', cursive",
-    fontSize: "14px",
+    fontSize: "20px",
     backgroundColor: "rgba(0, 0, 0, 0.5)",
     padding: "5px",
     borderRadius: "5px",
@@ -168,7 +170,9 @@ function updateMoneyPerSecond(
 
 const mpsDisplay: HTMLDivElement = makeUI();
 
+// -------------------------------------------------------------------------
 // Make Buildings
+// -------------------------------------------------------------------------
 const buildingArray: building[] = [
   new building(
     "Lemonade Stand",
@@ -209,19 +213,73 @@ const buildingArray: building[] = [
     `If you clip one dollar bill into another it does this and now you can't stop it.`,
   ),
 ];
-
+// -------------------------------------------------------------------------
 // Initialize building buttons
+// -------------------------------------------------------------------------
 for (const currentBuilding of buildingArray) {
   currentBuilding.setupButton();
 }
 
+
+// -------------------------------------------------------------------------
+// cheat menu
+// -------------------------------------------------------------------------
+
+const cheatMenu = document.createElement("div");
+cheatMenu.id = "cheat-menu"; // Applies the CSS styling
+cheatMenu.innerText = "Cheat Menu";
+document.body.appendChild(cheatMenu);
+let cheating = false;
 document.addEventListener("keydown", (event) => {
+
   if (event.key === "c") {
-    console.log("cheating");
+    cheating = !cheating;
+    if (cheating){
+      cheatMenu.style.visibility = "visible";
+
+    } else {
+      cheatMenu.style.visibility = "hidden";
+
+    }
   }
 });
 
-// Frame update and calculation logic
+
+// cheat buttons
+const addHunderedButton = document.createElement("button");
+addHunderedButton.innerHTML = "Add $100";
+cheatMenu.appendChild(addHunderedButton);
+addHunderedButton.addEventListener("click",()=>{
+  money_count += 100;
+} )
+
+const addThousandButton = document.createElement("button");
+addThousandButton.innerHTML = "Add $1 Thousand";
+cheatMenu.appendChild(addThousandButton);
+addThousandButton.addEventListener("click",()=>{
+  money_count += 1000;
+} )
+
+const addMillionButton = document.createElement("button");
+addMillionButton.innerHTML = "Add $1 Million";
+cheatMenu.appendChild(addMillionButton);
+addMillionButton.addEventListener("click",()=>{
+  money_count += 1000000;
+} )
+
+
+
+const squareMoneyButton = document.createElement("button");
+squareMoneyButton.innerHTML = "Square your money";
+cheatMenu.appendChild(squareMoneyButton);
+squareMoneyButton.addEventListener("click",()=>{
+  money_count =  money_count * money_count;
+} )
+
+
+// -------------------------------------------------------------------------
+// Frame update
+// -------------------------------------------------------------------------
 let lastFrame = 0;
 requestAnimationFrame(step);
 function step(currentTime: DOMHighResTimeStamp) {
@@ -240,6 +298,9 @@ function step(currentTime: DOMHighResTimeStamp) {
   requestAnimationFrame(step);
 }
 
+// -------------------------------------------------------------------------
+// calculation logic
+// -------------------------------------------------------------------------
 function calcMps() {
   return buildingArray.reduce((mps, currentBuilding) => {
     return mps + currentBuilding.baseMps * currentBuilding.count;
