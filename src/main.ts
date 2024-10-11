@@ -36,7 +36,7 @@ class building {
     name: string,
     baseMPS: number,
     cost: number,
-    costIncreaseRate?: number
+    costIncreaseRate?: number,
   ) {
     this.name = name;
     this.baseMps = baseMPS;
@@ -103,7 +103,7 @@ function makeUI(): HTMLDivElement {
 }
 function updateMoneyPerSecond(
   moneyDiv: HTMLDivElement,
-  moneyPerSecond: number
+  moneyPerSecond: number,
 ): void {
   moneyDiv.innerText = `Money per second: ${moneyPerSecond}`;
 }
