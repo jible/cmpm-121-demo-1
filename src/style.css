@@ -55,7 +55,7 @@
   top: 20px; /* Distance from the top edge of the screen */
 }
 
-#cheat-menu{
+#cheat-menu {
   display: flex;
   flex-direction: column; /* Arrange buttons in a column */
   align-items: flex-start; /* Align items to the start of the container */
@@ -67,7 +67,6 @@
   left: 20px; /* Distance from the left edge of the screen */
   top: 20px; /* Distance from the top edge of the screen */
 }
-
 
 #count-text {
   display: flex;
