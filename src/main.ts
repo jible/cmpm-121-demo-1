@@ -4,12 +4,12 @@ const app: HTMLDivElement = document.querySelector("#app")!;
 
 // Setting up visual assets
 const coinImg = document.createElement("img");
-coinImg.src = "top/Image/penny.png"; // Ensure the correct relative path
+coinImg.src = "Image/penny.png"; // Ensure the correct relative path
 coinImg.style.width = "103px"; // Adjust size as needed
 coinImg.style.height = "103px";
 
 const logoImg = document.createElement("img");
-logoImg.src = "top/Image/title.png"; // Ensure the correct relative path
+logoImg.src = "Image/title.png"; // Ensure the correct relative path
 logoImg.style.width = "622px"; // Adjust size as needed
 logoImg.style.height = "200px";
 
@@ -91,7 +91,7 @@ class building {
     baseMPS: number,
     cost: number,
     description: string,
-    costIncreaseRate?: number,
+    costIncreaseRate?: number
   ) {
     this.name = name;
     this.baseMps = baseMPS;
@@ -181,7 +181,7 @@ function makeUI(): HTMLDivElement {
 }
 function updateMoneyPerSecond(
   moneyDiv: HTMLDivElement,
-  moneyPerSecond: number,
+  moneyPerSecond: number
 ): void {
   moneyDiv.innerText = `Money per second: $${moneyPerSecond.toFixed(2)}`;
 }
@@ -193,49 +193,49 @@ const lemonadeStand = new building(
   "Lemonade Stand",
   0.1,
   0.5,
-  "Sells a 10 cent lemonade every second", // When life gives you lemons, make money!
+  "Sells a 10 cent lemonade every second" // When life gives you lemons, make money!
 );
 const minimumWageJob = new building(
   "Minimum Wage Job",
   2,
   100,
-  `A classic way to make money!`,
+  `A classic way to make money!`
 );
 const moneyTree = new building(
   `Money Tree`,
   50,
   1000,
-  `This stuff doesn't grow on... I guess it does!`,
+  `This stuff doesn't grow on... I guess it does!`
 );
 const goldenGoose = new building(
   `Golden Goose`,
   120,
   9000,
-  `Poops gold! Sounds painful`,
+  `Poops gold! Sounds painful`
 );
 const investmentProperty = new building(
   `Investment Property`,
   500,
   80000,
-  `Location Location Location!`,
+  `Location Location Location!`
 );
 const moneyMint = new building(
   `Money Mint`,
   13000,
   600000,
-  `Why don't more people just do this?`,
+  `Why don't more people just do this?`
 );
 const monopoly = new building(
   `Monopoly`,
   50000,
   3000000,
-  `This doesn't feel ethical but look at all of this money!`,
+  `This doesn't feel ethical but look at all of this money!`
 );
 const infiniteMoneyGlitch = new building(
   `Infinite Money Glitch`,
   999999,
   9999999999,
-  `If you clip one dollar bill into another it does this and now you can't stop it.`,
+  `If you clip one dollar bill into another it does this and now you can't stop it.`
 );
 // const  = new building("", ,);
 // bank
