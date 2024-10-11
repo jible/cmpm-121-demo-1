@@ -42,11 +42,22 @@
   font-style: italic; /* Optional italic style */
 }
 
-
 #button-container {
   display: flex;
   flex-direction: column; /* Arrange buttons in a column */
   align-items: flex-start; /* Align items to the start of the container */
+  gap: 2px; /* Space between buttons */
+  padding: 20px; /* Optional padding */
+
+  position: fixed; /* Keep it fixed on the left */
+  max-width: 300px; /* Adjust as needed for your layout */
+  left: 20px; /* Distance from the left edge of the screen */
+  top: 20px; /* Distance from the top edge of the screen */
+}
+
+
+#count-text {
+  display: flex;
   gap: 2px; /* Space between buttons */
   padding: 20px; /* Optional padding */
 
@@ -103,6 +114,13 @@ button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
+
+
+countDisplay {
+  font-size: 3em;
+}
+
 
 @media (prefers-color-scheme: light) {
   :root {

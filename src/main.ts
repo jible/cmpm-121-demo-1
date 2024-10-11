@@ -20,6 +20,7 @@ logoImg.style.height = "200px";
 
 const gameName = "Free Money the Game";
 document.title = gameName;
+let money_count = 0;
 
 const logoHolder = document.createElement("div");
 logoHolder.style.position = "fixed";
@@ -30,11 +31,9 @@ logoHolder.style.backgroundColor = "transparent";
 logoHolder.appendChild(logoImg);
 app.append(logoHolder);
 
-let money_count = 0;
-
 const countDisplay = document.createElement("countDisplay");
 countDisplay.innerHTML = `${money_count}`;
-app.append(countDisplay);
+logoHolder.appendChild(countDisplay);
 
 const money_button = document.createElement("button");
 money_button.style.backgroundColor = "transparent";
