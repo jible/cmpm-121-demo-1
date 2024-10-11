@@ -36,7 +36,7 @@ class building {
     name: string,
     baseMPS: number,
     cost: number,
-    costIncreaseRate?: number,
+    costIncreaseRate?: number
   ) {
     this.name = name;
     this.baseMps = baseMPS;
@@ -103,7 +103,7 @@ function makeUI(): HTMLDivElement {
 }
 function updateMoneyPerSecond(
   moneyDiv: HTMLDivElement,
-  moneyPerSecond: number,
+  moneyPerSecond: number
 ): void {
   moneyDiv.innerText = `Money per second: ${moneyPerSecond}`;
 }
@@ -113,12 +113,20 @@ const mpsDisplay: HTMLDivElement = makeUI();
 const buildingArray: building[] = [];
 const lemonadeStand = new building("Lemonade Stand", 0.1, 10);
 const minimumWageJob = new building("Minimum Wage Job", 2, 100);
-const goldenGoose = new building("Golden Goose", 50, 1000);
-
-// investment property
+const moneyTree = new building("Money Tree", 50, 1000);
+const goldenGoose = new building("Golden Goose", 120, 9000);
+const investmentProperty = new building("Investment Property", 500, 80000);
+const moneyMint = new building("Money Mint", 13000, 600000);
+const monopoly = new building("Monopoly", 50000, 3000000);
+const infiniteMoneyGlitch = new building(
+  "Infinite Money Glitch",
+  999999,
+  9999999999
+);
+// const  = new building("", ,);
 // bank
 // cookie converter
-//money mint
+// money mint
 // money solar panel?
 // do chores
 // money waterfall
@@ -126,7 +134,12 @@ const goldenGoose = new building("Golden Goose", 50, 1000);
 // infinite money glitch
 buildingArray.push(lemonadeStand);
 buildingArray.push(minimumWageJob);
+buildingArray.push(moneyTree);
 buildingArray.push(goldenGoose);
+buildingArray.push(investmentProperty);
+buildingArray.push(moneyMint);
+buildingArray.push(monopoly);
+buildingArray.push(infiniteMoneyGlitch);
 
 // Make buttons for buildings
 
