@@ -19,7 +19,7 @@ document.title = gameName;
 let money_count = 0;
 
 const logoHolder = document.createElement("div");
-logoHolder.className = 'logo-holder'; // Applying CSS class
+logoHolder.className = "logo-holder"; // Applying CSS class
 logoHolder.appendChild(logoImg);
 
 const countDisplay = document.createElement("countDisplay");
@@ -30,7 +30,7 @@ logoHolder.appendChild(countDisplay);
 app.append(logoHolder);
 
 const money_button = document.createElement("button");
-money_button.className = 'money-button'; // Applying CSS class
+money_button.className = "money-button"; // Applying CSS class
 money_button.appendChild(coinImg);
 app.append(money_button);
 money_button.addEventListener("click", () => {
@@ -170,14 +170,44 @@ const mpsDisplay: HTMLDivElement = makeUI();
 
 // Make Buildings
 const buildingArray: building[] = [
-  new building("Lemonade Stand", 0.1, 0.5, "Sells a 10 cent lemonade every second"),
+  new building(
+    "Lemonade Stand",
+    0.1,
+    0.5,
+    "Sells a 10 cent lemonade every second",
+  ),
   new building("Minimum Wage Job", 2, 100, `A classic way to make money!`),
-  new building("Money Tree", 50, 1000, `This stuff doesn't grow on... I guess it does!`),
+  new building(
+    "Money Tree",
+    50,
+    1000,
+    `This stuff doesn't grow on... I guess it does!`,
+  ),
   new building("Golden Goose", 120, 9000, `Poops gold! Sounds painful`),
-  new building("Investment Property", 500, 80000, `Location Location Location!`),
-  new building("Money Mint", 13000, 600000, `Why don't more people just do this?`),
-  new building("Monopoly", 50000, 3000000, `This doesn't feel ethical but look at all of this money!`),
-  new building("Infinite Money Glitch", 999999, 9999999999, `If you clip one dollar bill into another it does this and now you can't stop it.`)
+  new building(
+    "Investment Property",
+    500,
+    80000,
+    `Location Location Location!`,
+  ),
+  new building(
+    "Money Mint",
+    13000,
+    600000,
+    `Why don't more people just do this?`,
+  ),
+  new building(
+    "Monopoly",
+    50000,
+    3000000,
+    `This doesn't feel ethical but look at all of this money!`,
+  ),
+  new building(
+    "Infinite Money Glitch",
+    999999,
+    9999999999,
+    `If you clip one dollar bill into another it does this and now you can't stop it.`,
+  ),
 ];
 
 // Initialize building buttons
@@ -201,7 +231,7 @@ function step(currentTime: DOMHighResTimeStamp) {
 
   money_count += mps * (elapsed / 1000);
 
-  for (let currentBuilding of buildingArray) {
+  for (const currentBuilding of buildingArray) {
     currentBuilding.updateButton();
   }
   countDisplay.innerHTML = `$${money_count.toFixed(2)}`;
