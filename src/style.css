@@ -25,6 +25,37 @@
   opacity: 1; /* Ensure full visibility */
 }
 
+#tooltip-title {
+  margin: 0;
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+#tooltip-description {
+  margin: 5px 0;
+  font-size: 0.9em;
+}
+
+#tooltip-production {
+  margin: 5px 0;
+  font-size: 0.9em;
+  font-style: italic; /* Optional italic style */
+}
+
+
+#button-container {
+  display: flex;
+  flex-direction: column; /* Arrange buttons in a column */
+  align-items: flex-start; /* Align items to the start of the container */
+  gap: 2px; /* Space between buttons */
+  padding: 20px; /* Optional padding */
+
+  position: fixed; /* Keep it fixed on the left */
+  max-width: 300px; /* Adjust as needed for your layout */
+  left: 20px; /* Distance from the left edge of the screen */
+  top: 20px; /* Distance from the top edge of the screen */
+}
+
 a {
   font-weight: 500;
   color: #646cff;

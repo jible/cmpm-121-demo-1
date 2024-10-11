@@ -2,12 +2,33 @@ import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
 
+// Setting up visual assets
+const coinImg = document.createElement("img");
+coinImg.src = "./visAssets/penny.png"; // Ensure the correct relative path
+coinImg.alt = "coinIcon";
+coinImg.style.width = "103px"; // Adjust size as needed
+coinImg.style.height = "103px";
+
+const logoImg = document.createElement("img");
+logoImg.src = "./visAssets/title.png"; // Ensure the correct relative path
+logoImg.alt = "titleIcon";
+logoImg.style.width = "622px"; // Adjust size as needed
+logoImg.style.height = "200px";
+
+//------------------------------------------------------------------------------------------------------------------
+// Set up vars/consts for page- like logo and button and money count
+
 const gameName = "Free Money the Game";
 document.title = gameName;
 
-const header = document.createElement("h1");
-header.innerHTML = gameName;
-app.append(header);
+const logoHolder = document.createElement("div");
+logoHolder.style.position = "fixed";
+logoHolder.style.top = "0";
+logoHolder.style.left = "50%";
+logoHolder.style.transform = "translateX(-50%)";
+logoHolder.style.backgroundColor = "transparent";
+logoHolder.appendChild(logoImg);
+app.append(logoHolder);
 
 let money_count = 0;
 
@@ -16,14 +37,18 @@ countDisplay.innerHTML = `${money_count}`;
 app.append(countDisplay);
 
 const money_button = document.createElement("button");
-money_button.innerHTML = "💸";
-
+money_button.style.backgroundColor = "transparent";
+money_button.appendChild(coinImg);
 app.append(money_button);
 money_button.addEventListener("click", () => {
   money_count++;
 });
 
-// tooltip for buttons
+const buildingButtonContainer = document.createElement("div");
+buildingButtonContainer.id = "button-container";
+app.append(buildingButtonContainer);
+
+// tooltip for buttons - follows mouse arround and becomes visible over buttons
 const tooltip = document.createElement("div");
 tooltip.id = "tooltip";
 document.body.appendChild(tooltip);
@@ -31,6 +56,18 @@ addEventListener("mousemove", (event) => {
   tooltip.style.left = `${event.pageX}px`; // X position
   tooltip.style.top = `${event.pageY + 20}px`; // y position
 });
+
+const tooltipTitle = document.createElement("h3");
+tooltipTitle.id = "tooltip-title";
+
+const tooltipDescription = document.createElement("p");
+tooltipDescription.id = "tooltip-description";
+
+const tooltipProduction = document.createElement("p");
+tooltipProduction.id = "tooltip-production";
+
+tooltip.append(tooltipTitle, tooltipDescription, tooltipProduction);
+document.body.appendChild(tooltip);
 
 class building {
   name: string;
@@ -47,7 +84,7 @@ class building {
     baseMPS: number,
     cost: number,
     description: string,
-    costIncreaseRate?: number,
+    costIncreaseRate?: number
   ) {
     this.name = name;
     this.baseMps = baseMPS;
@@ -64,18 +101,30 @@ class building {
     this.button.style.textAlign = `left`;
     this.button.innerHTML = `${this.name}s: ${this.count}<br>Cost: ${Math.round(this.cost)}`;
     this.button.disabled = true;
-    app.append(this.button);
+    buildingButtonContainer.append(this.button);
 
     this.button.addEventListener("mouseenter", () => {
-      tooltip.textContent = this.description;
+      tooltipTitle.textContent = this.name;
+      tooltipDescription.textContent = this.description;
+      if (this.count > 0) {
+        tooltipProduction.textContent = `Produces ${this.baseMps} money per second`;
+      }
       tooltip.style.visibility = "visible";
     });
 
     this.button.addEventListener("mouseleave", () => {
+      tooltipTitle.textContent = ``;
+      tooltipDescription.textContent = ``;
+      tooltipProduction.textContent = ``;
+
       tooltip.style.visibility = "hidden";
     });
 
     this.button.addEventListener("click", () => {
+      if (this.count == 0) {
+        tooltipProduction.textContent = `Produces ${this.baseMps} money per second`;
+      }
+
       money_count -= this.cost;
       this.count += 1;
       this.cost *= this.costIncreaseRate;
@@ -125,7 +174,7 @@ function makeUI(): HTMLDivElement {
 }
 function updateMoneyPerSecond(
   moneyDiv: HTMLDivElement,
-  moneyPerSecond: number,
+  moneyPerSecond: number
 ): void {
   moneyDiv.innerText = `Money per second: ${moneyPerSecond}`;
 }
@@ -137,49 +186,49 @@ const lemonadeStand = new building(
   "Lemonade Stand",
   0.1,
   10,
-  "Sells a 10 cent lemonade every second", // When life gives you lemons, make money!
+  "Sells a 10 cent lemonade every second" // When life gives you lemons, make money!
 );
 const minimumWageJob = new building(
   "Minimum Wage Job",
   2,
   100,
-  `A classic way to make money!`,
+  `A classic way to make money!`
 );
 const moneyTree = new building(
   `Money Tree`,
   50,
   1000,
-  `This stuff doesn't grow on... I guess it does!`,
+  `This stuff doesn't grow on... I guess it does!`
 );
 const goldenGoose = new building(
   `Golden Goose`,
   120,
   9000,
-  `Poops gold! Sounds painful`,
+  `Poops gold! Sounds painful`
 );
 const investmentProperty = new building(
   `Investment Property`,
   500,
   80000,
-  `Location Location Location!`,
+  `Location Location Location!`
 );
 const moneyMint = new building(
   `Money Mint`,
   13000,
   600000,
-  `Why don't more people just do this?`,
+  `Why don't more people just do this?`
 );
 const monopoly = new building(
   `Monopoly`,
   50000,
   3000000,
-  `This doesn't feel ethical but look at all of this money!`,
+  `This doesn't feel ethical but look at all of this money!`
 );
 const infiniteMoneyGlitch = new building(
   `Infinite Money Glitch`,
   999999,
   9999999999,
-  `If you clip one dollar bill into another it does this and now you can't stop it.`,
+  `If you clip one dollar bill into another it does this and now you can't stop it.`
 );
 // const  = new building("", ,);
 // bank
