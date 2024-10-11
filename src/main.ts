@@ -23,6 +23,15 @@ money_button.addEventListener("click", () => {
   money_count++;
 });
 
+// tooltip for buttons
+const tooltip = document.createElement("div");
+tooltip.id = "tooltip";
+document.body.appendChild(tooltip);
+addEventListener("mousemove", (event) => {
+  tooltip.style.left = `${event.pageX}px`; // X position
+  tooltip.style.top = `${event.pageY + 20}px`; // y position
+});
+
 class building {
   name: string;
   baseMps: number;
@@ -52,9 +61,20 @@ class building {
 
   setupButton(): void {
     this.button = document.createElement("button");
+    this.button.style.textAlign = `left`;
     this.button.innerHTML = `${this.name}s: ${this.count}<br>Cost: ${Math.round(this.cost)}`;
     this.button.disabled = true;
     app.append(this.button);
+
+    this.button.addEventListener("mouseenter", () => {
+      tooltip.textContent = this.description;
+      tooltip.style.visibility = "visible";
+    });
+
+    this.button.addEventListener("mouseleave", () => {
+      tooltip.style.visibility = "hidden";
+    });
+
     this.button.addEventListener("click", () => {
       money_count -= this.cost;
       this.count += 1;
@@ -117,7 +137,7 @@ const lemonadeStand = new building(
   "Lemonade Stand",
   0.1,
   10,
-  "When life gives you lemons, make money! <br> Sells a 10 cent lemonade every second"
+  "Sells a 10 cent lemonade every second" // When life gives you lemons, make money!
 );
 const minimumWageJob = new building(
   "Minimum Wage Job",

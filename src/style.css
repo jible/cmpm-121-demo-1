@@ -14,6 +14,18 @@
   -webkit-text-size-adjust: 100%;
 }
 
+#tooltip {
+  position: absolute;
+  background-color: rgba(0, 255, 136, 0.8); /* Red background */
+  color: #094728;
+  padding: 10px;
+  border-radius: 5px;
+  border: 6px solid #094728; /* Border for clarity */
+  visibility: hidden; /* Set to visible for testing */
+  opacity: 1; /* Ensure full visibility */
+}
+
+
 a {
   font-weight: 500;
   color: #646cff;
