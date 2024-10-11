@@ -220,7 +220,6 @@ for (const currentBuilding of buildingArray) {
   currentBuilding.setupButton();
 }
 
-
 // -------------------------------------------------------------------------
 // cheat menu
 // -------------------------------------------------------------------------
@@ -231,51 +230,44 @@ cheatMenu.innerText = "Cheat Menu";
 document.body.appendChild(cheatMenu);
 let cheating = false;
 document.addEventListener("keydown", (event) => {
-
   if (event.key === "c") {
     cheating = !cheating;
-    if (cheating){
+    if (cheating) {
       cheatMenu.style.visibility = "visible";
-
     } else {
       cheatMenu.style.visibility = "hidden";
-
     }
   }
 });
-
 
 // cheat buttons
 const addHunderedButton = document.createElement("button");
 addHunderedButton.innerHTML = "Add $100";
 cheatMenu.appendChild(addHunderedButton);
-addHunderedButton.addEventListener("click",()=>{
+addHunderedButton.addEventListener("click", () => {
   money_count += 100;
-} )
+});
 
 const addThousandButton = document.createElement("button");
 addThousandButton.innerHTML = "Add $1 Thousand";
 cheatMenu.appendChild(addThousandButton);
-addThousandButton.addEventListener("click",()=>{
+addThousandButton.addEventListener("click", () => {
   money_count += 1000;
-} )
+});
 
 const addMillionButton = document.createElement("button");
 addMillionButton.innerHTML = "Add $1 Million";
 cheatMenu.appendChild(addMillionButton);
-addMillionButton.addEventListener("click",()=>{
+addMillionButton.addEventListener("click", () => {
   money_count += 1000000;
-} )
-
-
+});
 
 const squareMoneyButton = document.createElement("button");
 squareMoneyButton.innerHTML = "Square your money";
 cheatMenu.appendChild(squareMoneyButton);
-squareMoneyButton.addEventListener("click",()=>{
-  money_count =  money_count * money_count;
-} )
-
+squareMoneyButton.addEventListener("click", () => {
+  money_count = money_count * money_count;
+});
 
 // -------------------------------------------------------------------------
 // Frame update
