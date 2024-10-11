@@ -23,25 +23,35 @@ document.title = gameName;
 let money_count = 0;
 
 const logoHolder = document.createElement("div");
+logoHolder.style.display = "flex";
+logoHolder.style.flexDirection = "column"; /* Arrange buttons in a column */
+logoHolder.style.alignItems =
+  "center"; /* Align items to the start of the container */
 logoHolder.style.position = "fixed";
 logoHolder.style.top = "0";
 logoHolder.style.left = "50%";
 logoHolder.style.transform = "translateX(-50%)";
 logoHolder.style.backgroundColor = "transparent";
 logoHolder.appendChild(logoImg);
-app.append(logoHolder);
 
 const countDisplay = document.createElement("countDisplay");
-countDisplay.innerHTML = `${money_count}`;
+countDisplay.innerHTML = `$${money_count}`;
+countDisplay.style.textAlign = "center";
 logoHolder.appendChild(countDisplay);
+
+app.append(logoHolder);
 
 const money_button = document.createElement("button");
 money_button.style.backgroundColor = "transparent";
 money_button.appendChild(coinImg);
 app.append(money_button);
 money_button.addEventListener("click", () => {
-  money_count++;
+  money_count += 0.01;
 });
+
+// const cheatMenu = document.createElement("cheat-menu");
+// cheatMenu.
+// app.append(cheatMenu);
 
 const buildingButtonContainer = document.createElement("div");
 buildingButtonContainer.id = "button-container";
@@ -106,7 +116,7 @@ class building {
       tooltipTitle.textContent = this.name;
       tooltipDescription.textContent = this.description;
       if (this.count > 0) {
-        tooltipProduction.textContent = `Produces ${this.baseMps} money per second`;
+        tooltipProduction.textContent = `Produces $${this.baseMps.toFixed(2)} money per second`;
       }
       tooltip.style.visibility = "visible";
     });
@@ -121,21 +131,21 @@ class building {
 
     this.button.addEventListener("click", () => {
       if (this.count == 0) {
-        tooltipProduction.textContent = `Produces ${this.baseMps} money per second`;
+        tooltipProduction.textContent = `Produces $${this.baseMps.toFixed(2)} money per second`;
       }
 
       money_count -= this.cost;
       this.count += 1;
       this.cost *= this.costIncreaseRate;
       if (this.button) {
-        this.button.innerHTML = `${this.name}s: ${this.count}<br>Cost: ${Math.round(this.cost)}`;
+        this.button.innerHTML = `${this.name}s: $${this.count}<br>Cost: $${this.cost.toFixed(2)}`;
       }
     });
   }
 
   updateButton() {
     if (this.button) {
-      this.button.innerHTML = `${this.name}s: ${this.count}<br>Cost: ${Math.round(this.cost)}`;
+      this.button.innerHTML = `${this.name}s: ${this.count}<br>Cost: $${this.cost.toFixed(2)}`;
       if (money_count >= this.cost) {
         this.button.disabled = false;
       } else {
@@ -175,7 +185,7 @@ function updateMoneyPerSecond(
   moneyDiv: HTMLDivElement,
   moneyPerSecond: number
 ): void {
-  moneyDiv.innerText = `Money per second: ${moneyPerSecond}`;
+  moneyDiv.innerText = `Money per second: $${moneyPerSecond.toFixed(2)}`;
 }
 const mpsDisplay: HTMLDivElement = makeUI();
 
@@ -184,7 +194,7 @@ const buildingArray: building[] = [];
 const lemonadeStand = new building(
   "Lemonade Stand",
   0.1,
-  10,
+  0.5,
   "Sells a 10 cent lemonade every second" // When life gives you lemons, make money!
 );
 const minimumWageJob = new building(
@@ -258,6 +268,16 @@ for (
   currentBuilding.setupButton();
 }
 
+document.addEventListener("keydown", (event) => {
+  if (event.key === "c") {
+    console.log("cheating");
+  }
+});
+
+function cheat() {
+  console.log("hai");
+}
+
 //This stuff occurs every Frame
 //------------------------------------------------------------------------------------------------------------------
 let lastFrame = 0;
@@ -279,7 +299,7 @@ function step(currentTime: DOMHighResTimeStamp) {
     const currentBuilding = buildingArray[buildingIndex];
     currentBuilding.updateButton();
   }
-  countDisplay.innerHTML = `${Math.round(money_count)}`;
+  countDisplay.innerHTML = `$${money_count.toFixed(2)}`;
   updateMoneyPerSecond(mpsDisplay, mps);
 
   requestAnimationFrame(step);
