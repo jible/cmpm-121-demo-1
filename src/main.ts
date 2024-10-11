@@ -10,7 +10,6 @@ header.innerHTML = gameName;
 app.append(header);
 
 let money_count = 0;
-//let all_time_money = 0;
 
 const countDisplay = document.createElement("countDisplay");
 countDisplay.innerHTML = `${money_count}`;
