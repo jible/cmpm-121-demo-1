@@ -83,7 +83,7 @@ class building {
     baseMPS: number,
     cost: number,
     description: string,
-    costIncreaseRate?: number
+    costIncreaseRate?: number,
   ) {
     this.name = name;
     this.baseMps = baseMPS;
@@ -163,7 +163,7 @@ function makeUI(): HTMLDivElement {
 
 function updateMoneyPerSecond(
   moneyDiv: HTMLDivElement,
-  moneyPerSecond: number
+  moneyPerSecond: number,
 ): void {
   moneyDiv.innerText = `Money per second: $${moneyPerSecond.toFixed(3)}`;
 }
@@ -178,39 +178,39 @@ const buildingArray: building[] = [
     "Lemonade Stand",
     0.001,
     0.01,
-    "Sells a 1 cent lemonade every 10 seconds"
+    "Sells a 1 cent lemonade every 10 seconds",
   ),
   new building("Minimum Wage Job", 2, 100, `A classic way to make money!`),
   new building(
     "Money Tree",
     50,
     1000,
-    `This stuff doesn't grow on... I guess it does!`
+    `This stuff doesn't grow on... I guess it does!`,
   ),
   new building("Golden Goose", 120, 9000, `Poops gold! Sounds painful`),
   new building(
     "Investment Property",
     500,
     80000,
-    `Location Location Location!`
+    `Location Location Location!`,
   ),
   new building(
     "Money Mint",
     13000,
     600000,
-    `Why don't more people just do this?`
+    `Why don't more people just do this?`,
   ),
   new building(
     "Monopoly",
     50000,
     3000000,
-    `I know this board game is good, but I didn't know it was that good.`
+    `I know this board game is good, but I didn't know it was that good.`,
   ),
   new building(
     "Infinite Money Glitch",
     999999,
     9999999999,
-    `If you clip one dollar bill into another it does this and now you can't stop it.`
+    `If you clip one dollar bill into another it does this and now you can't stop it.`,
   ),
 ];
 // -------------------------------------------------------------------------
