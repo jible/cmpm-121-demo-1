@@ -194,12 +194,7 @@ const buildingArray: building[] = [
     80000,
     `Location Location Location!`,
   ),
-  new building(
-    "Money Mint",
-    13000,
-    600000,
-    `Why don't more people just do this?`,
-  ),
+  new building("Money Mint", 13000, 600000, `Don't tell the IRS?`),
   new building(
     "Monopoly",
     50000,
