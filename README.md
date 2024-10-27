@@ -1,1 +1,2 @@
-This is my version of cookie clicker, where the player clicks for money instead of cookies!
+This is my version of cookie clicker, where the player clicks for money instead
+of cookies!

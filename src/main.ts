@@ -83,7 +83,7 @@ class building {
     baseMPS: number,
     cost: number,
     description: string,
-    costIncreaseRate?: number,
+    costIncreaseRate?: number
   ) {
     this.name = name;
     this.baseMps = baseMPS;
@@ -98,14 +98,18 @@ class building {
   setupButton(): void {
     this.button = document.createElement("button");
     this.button.style.textAlign = `left`;
-    this.button.innerHTML = `${this.name}s: ${this.count}<br>Cost: ${Math.round(this.cost)}`;
+    this.button.innerHTML = `${this.name}s: ${this.count}<br>Cost: ${Math.round(
+      this.cost
+    )}`;
     this.button.disabled = true;
     buildingButtonContainer.append(this.button);
     this.button.addEventListener("mouseenter", () => {
       tooltipTitle.textContent = this.name;
       tooltipDescription.textContent = this.description;
       if (this.count > 0) {
-        tooltipProduction.textContent = `Produces $${this.baseMps.toFixed(2)} money per second`;
+        tooltipProduction.textContent = `Produces $${this.baseMps.toFixed(
+          2
+        )} money per second`;
       }
       tooltip.style.visibility = "visible";
     });
@@ -117,19 +121,25 @@ class building {
     });
     this.button.addEventListener("click", () => {
       if (this.count === 0) {
-        tooltipProduction.textContent = `Produces $${this.baseMps.toFixed(2)} money per second`;
+        tooltipProduction.textContent = `Produces $${this.baseMps.toFixed(
+          2
+        )} money per second`;
       }
       money_count -= this.cost;
       this.count += 1;
       this.cost *= this.costIncreaseRate;
       if (this.button) {
-        this.button.innerHTML = `${this.name}s: $${this.count}<br>Cost: $${this.cost.toFixed(2)}`;
+        this.button.innerHTML = `${this.name}s: $${this.count}<br>Cost: $${this.cost.toFixed(
+          2
+        )}`;
       }
     });
   }
   updateButton() {
     if (this.button) {
-      this.button.innerHTML = `${this.name}s: ${this.count}<br>Cost: $${this.cost.toFixed(2)}`;
+      this.button.innerHTML = `${this.name}s: ${this.count}<br>Cost: $${this.cost.toFixed(
+        2
+      )}`;
       if (money_count >= this.cost) {
         this.button.disabled = false;
       } else {
@@ -139,36 +149,20 @@ class building {
   }
 }
 // -------------------------------------------------------------------------
-// Make Money per second Display and UI functions
+// Make Money per second display and update function
 // -------------------------------------------------------------------------
-function makeUI(): HTMLDivElement {
-  const newUI = document.createElement("div");
-  newUI.innerText = "Money per second: 0";
 
-  Object.assign(newUI.style, {
-    position: "absolute",
-    top: "10px",
-    right: "10px",
-    color: "white",
-    fontSize: "20px",
-    backgroundColor: "rgba(0, 0, 0, 0.5)",
-    padding: "5px",
-    borderRadius: "5px",
-    zIndex: "1",
-  });
-
-  document.body.appendChild(newUI);
-  return newUI;
-}
+const mpsDisplay = document.createElement("div");
+mpsDisplay.innerText = "Money per second: 0";
+mpsDisplay.className = "mps";
+document.body.appendChild(mpsDisplay);
 
 function updateMoneyPerSecond(
   moneyDiv: HTMLDivElement,
-  moneyPerSecond: number,
+  moneyPerSecond: number
 ): void {
   moneyDiv.innerText = `Money per second: $${moneyPerSecond.toFixed(3)}`;
 }
-
-const mpsDisplay: HTMLDivElement = makeUI();
 
 // -------------------------------------------------------------------------
 // Make Buildings
@@ -178,34 +172,34 @@ const buildingArray: building[] = [
     "Lemonade Stand",
     0.001,
     0.01,
-    "Sells a 1 cent lemonade every 10 seconds",
+    "Sells a 1 cent lemonade every 10 seconds"
   ),
   new building("Minimum Wage Job", 2, 100, `A classic way to make money!`),
   new building(
     "Money Tree",
     50,
     1000,
-    `This stuff doesn't grow on... I guess it does!`,
+    `This stuff doesn't grow on... I guess it does!`
   ),
   new building("Golden Goose", 120, 9000, `Poops gold! Sounds painful`),
   new building(
     "Investment Property",
     500,
     80000,
-    `Location Location Location!`,
+    `Location Location Location!`
   ),
   new building("Money Mint", 13000, 600000, `Don't tell the IRS?`),
   new building(
     "Monopoly",
     50000,
     3000000,
-    `I know this board game is good, but I didn't know it was that good.`,
+    `I know this board game is good, but I didn't know it was that good.`
   ),
   new building(
     "Infinite Money Glitch",
     999999,
     9999999999,
-    `If you clip one dollar bill into another it does this and now you can't stop it.`,
+    `If you clip one dollar bill into another it does this and now you can't stop it.`
   ),
 ];
 // -------------------------------------------------------------------------
@@ -235,32 +229,29 @@ document.addEventListener("keydown", (event) => {
   }
 });
 
-// cheat buttons
-const addHunderedButton = document.createElement("button");
-addHunderedButton.innerHTML = "Add $100";
-cheatMenu.appendChild(addHunderedButton);
-addHunderedButton.addEventListener("click", () => {
+// Function to create a cheat button
+function createCheatButton(label: string, incrementFunction: () => void) {
+  const button = document.createElement("button");
+  button.innerHTML = label;
+  cheatMenu.appendChild(button);
+  button.addEventListener("click", incrementFunction);
+  return button;
+}
+
+// Create buttons using the function
+createCheatButton("Add $100", () => {
   money_count += 100;
 });
 
-const addThousandButton = document.createElement("button");
-addThousandButton.innerHTML = "Add $1 Thousand";
-cheatMenu.appendChild(addThousandButton);
-addThousandButton.addEventListener("click", () => {
+createCheatButton("Add $1 Thousand", () => {
   money_count += 1000;
 });
 
-const addMillionButton = document.createElement("button");
-addMillionButton.innerHTML = "Add $1 Million";
-cheatMenu.appendChild(addMillionButton);
-addMillionButton.addEventListener("click", () => {
+createCheatButton("Add $1 Million", () => {
   money_count += 1000000;
 });
 
-const squareMoneyButton = document.createElement("button");
-squareMoneyButton.innerHTML = "Square your money";
-cheatMenu.appendChild(squareMoneyButton);
-squareMoneyButton.addEventListener("click", () => {
+createCheatButton("Square your money", () => {
   money_count = money_count * money_count;
 });
 
