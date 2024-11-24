@@ -43,7 +43,7 @@ money_button.addEventListener("click", () => {
   money_count += 0.01;
   money_button.style.transform = `scale(${BUTTON_PRESS_SCALE})`;
   setTimeout(() => {
-      money_button.style.transform = "scale(1)"; // reset scale
+    money_button.style.transform = "scale(1)"; // reset scale
   }, 100); // 100ms duration for the press effect
 });
 
