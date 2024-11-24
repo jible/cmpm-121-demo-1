@@ -1,12 +1,14 @@
 import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
+
 const BUTTON_PRESS_SCALE = 0.95;
 const BUTTON_DEFAULT_SCALE = 1.0;
 const BUTTON_HOVER_SCALE = 1.05;
 // -------------------------------------------------------------------------
 // Setting up visual assets
 // -------------------------------------------------------------------------
+
 const coinImg = document.createElement("img");
 coinImg.src = "Image/penny.png";
 coinImg.style.width = "103px";

@@ -11,7 +11,9 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
-
+html, body {
+  background-color: rgb(47, 102, 47);
+}
 #tooltip {
   position: absolute;
   background-color: rgba(0, 255, 136, 0.8);
