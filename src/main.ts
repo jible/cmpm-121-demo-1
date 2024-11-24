@@ -1,7 +1,9 @@
 import "./style.css";
 
 const app: HTMLDivElement = document.querySelector("#app")!;
-
+const BUTTON_PRESS_SCALE = 0.95;
+const BUTTON_DEFAULT_SCALE = 1.0;
+const BUTTON_HOVER_SCALE = 1.05;
 // -------------------------------------------------------------------------
 // Setting up visual assets
 // -------------------------------------------------------------------------
@@ -39,6 +41,17 @@ money_button.appendChild(coinImg);
 app.append(money_button);
 money_button.addEventListener("click", () => {
   money_count += 0.01;
+  money_button.style.transform = `scale(${BUTTON_PRESS_SCALE})`;
+  setTimeout(() => {
+      money_button.style.transform = "scale(1)"; // reset scale
+  }, 100); // 100ms duration for the press effect
+});
+
+money_button.addEventListener("mouseover", () => {
+  money_button.style.transform = `scale(${BUTTON_HOVER_SCALE})`; // slightly enlarge button on hover
+});
+money_button.addEventListener("mouseout", () => {
+  money_button.style.transform = `scale(${BUTTON_DEFAULT_SCALE})`; // return to normal size
 });
 
 const buildingButtonContainer = document.createElement("div");
